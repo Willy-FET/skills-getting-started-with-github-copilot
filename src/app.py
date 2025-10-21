@@ -62,6 +62,49 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specific activity
     activity = activities[activity_name]
 
+    # Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Student is already signed up for this activity")
+
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
+    # Add more activities to the database
+    activities.update({
+        "Soccer Team": {
+            "description": "Competitive soccer team training and matches",
+            "schedule": "Tuesdays and Thursdays, 4:00 PM - 6:00 PM",
+            "max_participants": 25,
+            "participants": ["alex@mergington.edu", "sarah@mergington.edu"]
+        },
+        "Basketball Club": {
+            "description": "Basketball skills development and friendly games",
+            "schedule": "Mondays and Wednesdays, 3:30 PM - 5:00 PM",
+            "max_participants": 15,
+            "participants": ["james@mergington.edu", "mia@mergington.edu"]
+        },
+        "Art Club": {
+            "description": "Explore various art mediums including painting and sculpture",
+            "schedule": "Fridays, 2:30 PM - 4:30 PM",
+            "max_participants": 18,
+            "participants": ["isabella@mergington.edu", "ethan@mergington.edu"]
+        },
+        "Theater Group": {
+            "description": "Acting, scriptwriting, and stage production",
+            "schedule": "Tuesdays and Thursdays, 3:00 PM - 5:30 PM",
+            "max_participants": 20,
+            "participants": ["ava@mergington.edu", "noah@mergington.edu"]
+        },
+        "Science Club": {
+            "description": "Conduct experiments and explore scientific concepts",
+            "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+            "max_participants": 16,
+            "participants": ["liam@mergington.edu", "charlotte@mergington.edu"]
+        },
+        "Debate Team": {
+            "description": "Develop critical thinking and public speaking skills",
+            "schedule": "Mondays, 4:00 PM - 5:30 PM",
+            "max_participants": 12,
+            "participants": ["william@mergington.edu", "amelia@mergington.edu"]
+        }
+    })
